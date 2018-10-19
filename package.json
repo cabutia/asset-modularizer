@@ -1,0 +1,31 @@
+{
+  "name": "asset-modularizer",
+  "version": "0.0.1",
+  "description": "Manage all of your assets in modules.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leandro-grg/asset-modularizer.git"
+  },
+  "keywords": [
+    "assets",
+    "webpack",
+    "laravel-mix",
+    "laravel",
+    "mix",
+    "loader",
+    "file",
+    "url",
+    "modules",
+    "asset"
+  ],
+  "author": "Leandro Gomez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leandro-grg/asset-modularizer/issues"
+  },
+  "homepage": "https://github.com/leandro-grg/asset-modularizer#readme"
+}
