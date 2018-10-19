@@ -1,12 +1,24 @@
-const path = require('path')
 const fs = require('fs')
+const path = require('path')
 const mix = require('laravel-mix')
+const config = {
+    publicPath: 'public',
+    publicModulesPath: 'modules',
+    publicMediaPath: 'media',
+    modulesPath: 'app/Modules',
+    entryFilename: 'module',
+    jsPath: 'Resources/js',
+    scssPath: 'Resources/sass',
+    mediaPath: 'Resources/media'
+}
 const setters = {
-    publicPath: (nval) => config.publicPath = nval,
-    modulesPath: (nval) => config.modulesPath = nval,
-    entryFilename: (nval) => config.entryFilename = nval,
-    jsPath: (nval) => config.jsPath = nval,
-    scssPath: (nval) => config.scssPath = nval
+    publicPath: nval => config.publicPath = nval,
+    publicModulesPath: nval => config.publicModulesPath = nval,
+    modulesPath: nval => config.modulesPath = nval,
+    entryFilename: nval => config.entryFilename = nval,
+    jsPath: nval => config.jsPath = nval,
+    scssPath: nval => config.scssPath = nval,
+    mediaPath: nval => config.mediaPath = nval
 }
 
 const getters = {
@@ -15,15 +27,8 @@ const getters = {
     entryFilename: () => config.entryFilename,
     jsPath: () => config.jsPath,
     scssPath: () => config.scssPath,
+    mediaPath: () => config.mediaPath,
     config: () => config
-}
-
-let config = {
-    publicPath: 'public/modules',
-    modulesPath: 'app/Modules/',
-    entryFilename: 'module',
-    jsPath: 'Resources/js',
-    scssPath: 'Resources/sass'
 }
 
 mix.webpackConfig({
@@ -40,12 +45,13 @@ mix.webpackConfig({
                                     let modulename = path
                                         .split(config.modulesPath)
                                         .pop()
+                                        .replace(/^(\/*).*?/i, '')
                                         .split('/')
                                         .shift()
                                         .toLowerCase()
                                         .replace(/^(_*).*?/i, '')
                                     return (
-                                        'modules/' + modulename + '/media/[name].[ext]?[hash]'
+                                        config.publicModulesPath + '/' + modulename + '/' + config.publicMediaPath + '/[name].[ext]'
                                     );
                                 }
 
@@ -95,22 +101,30 @@ module.exports = {
         })
 
         modules.forEach(module => {
-            let _public = config.publicPath
-            let moduleOutputPath = config.publicPath + '/' + module.display.toLowerCase() + '/'
+            let moduleOutputPath = path.join(config.publicPath, config.publicModulesPath, module.display.toLowerCase())
 
-            let jsIn = module.path + '/' + config.jsPath + '/' + config.entryFilename + '.js'
-            let jsOut = moduleOutputPath + module.display.toLowerCase() + '.js'
+            // Compile javascript files
+            let jsIn = path.join(module.path, config.jsPath, config.entryFilename + '.js')
+            let jsOut = path.join(moduleOutputPath, module.display.toLowerCase() + '.js')
             if (fs.existsSync(jsIn)) {
                 mix.js(jsIn, jsOut)
             }
 
-            let scssIn = module.path + '/' + config.scssPath + '/' + config.entryFilename + '.scss'
-            let scssOut = moduleOutputPath + module.display.toLowerCase() + '.css'
+            // Compile sass files
+            let scssIn = path.join(module.path, config.scssPath, config.entryFilename + '.scss')
+            let scssOut = path.join(moduleOutputPath, module.display.toLowerCase() + '.css')
 
             if (fs.existsSync(scssIn)) {
                 mix.sass(scssIn, scssOut)
             }
-            mix.setResourceRoot(_public)
+
+            // Media files
+            let mediaIn = path.join(module.path, config.mediaPath, 'static')
+            let mediaOut = path.join(moduleOutputPath, config.publicMediaPath, 'static')
+
+            if (fs.existsSync(mediaIn)) {
+                mix.copy(mediaIn, mediaOut)
+            }
         })
     }
 }

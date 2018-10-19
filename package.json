@@ -30,6 +30,8 @@
   "homepage": "https://github.com/leandro-grg/asset-modularizer#readme",
   "dependencies": {
     "cross-env": "^5.2.0",
-    "laravel-mix": "^2.1.14"
+    "fs": "0.0.1-security",
+    "laravel-mix": "^2.1.14",
+    "path": "^0.12.7"
   }
 }
