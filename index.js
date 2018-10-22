@@ -41,6 +41,9 @@ mix.webpackConfig({
                         loader: 'file-loader',
                         options: {
                             name: path => {
+                                console.log('|-------------------- BUILDING --------------------|')
+                                console.log(path)
+                                console.log('|--------------------------------------------------|')
                                 if (!/node_modules|bower_components/.test(path)) {
                                     let modulename = path
                                         .split(config.modulesPath)
