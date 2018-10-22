@@ -42,8 +42,6 @@ mix.webpackConfig({
                         options: {
                             name: path => {
                                 if (!/node_modules|bower_components/.test(path)) {
-                                    console.log('\n\n|-------------------- BUILDING --------------------|\n')
-
                                     let modulename = path
                                         .split(config.modulesPath)
                                         .pop()
@@ -52,28 +50,20 @@ mix.webpackConfig({
                                         .shift()
                                         .toLowerCase()
                                         .replace(/^(_*).*?/i, '')
-                                    console.log('The module is: ', JSON.stringify({
-                                        config: config.modulesPath,
-                                        path: path,
-                                        dirname: __dirname,
-                                        name: modulename
-                                    }, null, 4))
-
-                                    console.log('\n|--------------------------------------------------|\n\n')
                                     return (
-                                        config.publicModulesPath + '/' + modulename + '/' + config.publicMediaPath + '/[name].[ext]?[hash]'
+                                        config.publicModulesPath + '/' + modulename + '/' + config.publicMediaPath + '/[name].[ext]'
                                     );
                                 }
-                                
+
                                 return (
-                                    'modules/vendor/' +
+                                    config.publicModulesPath + '/' +
                                     path
+                                        .replace('unifynova-admin-template', '')
                                         .replace(/\\/g, '/')
                                         .replace(
                                             /((.*(node_modules|bower_components))|images|image|img|assets)\//g,
                                             ''
-                                        ) +
-                                    '?[hash]'
+                                        )
                                 );
                             },
                             publicPath: Config.resourceRoot
