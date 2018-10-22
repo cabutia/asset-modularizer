@@ -1,6 +1,6 @@
 {
   "name": "asset-modularizer",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Manage all of your assets in modules.",
   "main": "index.js",
   "scripts": {
