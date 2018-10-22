@@ -61,32 +61,12 @@ mix.webpackConfig({
 
                                     console.log('\n|--------------------------------------------------|\n\n')
                                     return (
-                                        config.publicModulesPath + '/' + modulename + '/' + config.publicMediaPath + '/[name].[ext]'
+                                        config.publicModulesPath + '/' + modulename + '/' + config.publicMediaPath + '/[name].[ext]?[hash]'
                                     );
                                 }
-
-                                console.log('\n\n|--------------- BUILDING FROM NODE ---------------|\n')
-
-                                let modulename = path
-                                    .split(config.modulesPath)
-                                    .pop()
-                                    .replace(/^(\/*).*?/i, '')
-                                    .split('/')
-                                    .shift()
-                                    .toLowerCase()
-                                    .replace(/^(_*).*?/i, '')
-                                console.log('The module is: ', JSON.stringify({
-                                    config: config.modulesPath,
-                                    path: path,
-                                    dirname: __dirname,
-                                    name: modulename
-                                }, null, 4))
-
-                                console.log('\n|--------------------------------------------------|\n\n')
-
+                                
                                 return (
-                                    Config.fileLoaderDirs.images +
-                                    '/vendor/' +
+                                    'modules/vendor/' +
                                     path
                                         .replace(/\\/g, '/')
                                         .replace(
