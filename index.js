@@ -43,9 +43,7 @@ mix.webpackConfig({
                             name: path => {
                                 if (!/node_modules|bower_components/.test(path)) {
                                     console.log('\n\n|-------------------- BUILDING --------------------|\n')
-                                    console.log(__dirname, '\n')
-                                    console.log(path, '\n')
-                                    console.log('\n|--------------------------------------------------|\n\n')
+
                                     let modulename = path
                                         .split(config.modulesPath)
                                         .pop()
@@ -54,14 +52,36 @@ mix.webpackConfig({
                                         .shift()
                                         .toLowerCase()
                                         .replace(/^(_*).*?/i, '')
+                                    console.log('The module is: ', JSON.stringify({
+                                        config: config.modulesPath,
+                                        path: path,
+                                        dirname: __dirname,
+                                        name: modulename
+                                    }, null, 4))
+
+                                    console.log('\n|--------------------------------------------------|\n\n')
                                     return (
                                         config.publicModulesPath + '/' + modulename + '/' + config.publicMediaPath + '/[name].[ext]'
                                     );
                                 }
 
                                 console.log('\n\n|--------------- BUILDING FROM NODE ---------------|\n')
-                                console.log(__dirname, '\n')
-                                console.log(path, '\n')
+
+                                let modulename = path
+                                    .split(config.modulesPath)
+                                    .pop()
+                                    .replace(/^(\/*).*?/i, '')
+                                    .split('/')
+                                    .shift()
+                                    .toLowerCase()
+                                    .replace(/^(_*).*?/i, '')
+                                console.log('The module is: ', JSON.stringify({
+                                    config: config.modulesPath,
+                                    path: path,
+                                    dirname: __dirname,
+                                    name: modulename
+                                }, null, 4))
+
                                 console.log('\n|--------------------------------------------------|\n\n')
 
                                 return (
