@@ -41,11 +41,11 @@ mix.webpackConfig({
                         loader: 'file-loader',
                         options: {
                             name: path => {
-                                console.log('\n\n|-------------------- BUILDING --------------------|\n')
-                                console.log(__dirname, '\n')
-                                console.log(path, '\n')
-                                console.log('\n|--------------------------------------------------|\n\n')
                                 if (!/node_modules|bower_components/.test(path)) {
+                                    console.log('\n\n|-------------------- BUILDING --------------------|\n')
+                                    console.log(__dirname, '\n')
+                                    console.log(path, '\n')
+                                    console.log('\n|--------------------------------------------------|\n\n')
                                     let modulename = path
                                         .split(config.modulesPath)
                                         .pop()
@@ -58,6 +58,11 @@ mix.webpackConfig({
                                         config.publicModulesPath + '/' + modulename + '/' + config.publicMediaPath + '/[name].[ext]'
                                     );
                                 }
+
+                                console.log('\n\n|--------------- BUILDING FROM NODE ---------------|\n')
+                                console.log(__dirname, '\n')
+                                console.log(path, '\n')
+                                console.log('\n|--------------------------------------------------|\n\n')
 
                                 return (
                                     Config.fileLoaderDirs.images +
