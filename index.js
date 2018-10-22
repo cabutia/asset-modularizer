@@ -42,7 +42,8 @@ mix.webpackConfig({
                         options: {
                             name: path => {
                                 console.log('\n\n|-------------------- BUILDING --------------------|\n')
-                                console.log(path)
+                                console.log(__dirname, '\n')
+                                console.log(path, '\n')
                                 console.log('\n|--------------------------------------------------|\n\n')
                                 if (!/node_modules|bower_components/.test(path)) {
                                     let modulename = path
