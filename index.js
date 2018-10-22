@@ -102,6 +102,8 @@ module.exports = {
         modules.forEach(module => {
             let moduleOutputPath = path.join(config.publicPath, config.publicModulesPath, module.display.toLowerCase())
 
+            mix.setResourceRoot(moduleOutputPath)
+
             // Compile javascript files
             let jsIn = path.join(module.path, config.jsPath, config.entryFilename + '.js')
             let jsOut = path.join(moduleOutputPath, module.display.toLowerCase() + '.js')
