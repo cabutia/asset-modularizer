@@ -56,7 +56,7 @@ mix.webpackConfig({
                                 }
 
                                 return (
-                                    config.publicModulesPath + '/' +
+                                    config.publicModulesPath +
                                     path
                                         .replace('unifynova-admin-template', '')
                                         .replace(/\\/g, '/')
