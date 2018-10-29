@@ -51,7 +51,7 @@ mix.webpackConfig({
                                         .toLowerCase()
                                         .replace(/^(_*).*?/i, '')
                                     return (
-                                        config.publicModulesPath + '/' + modulename + '/' + config.publicMediaPath + '/[name].[ext]'
+                                        config.publicModulesPath + '/' + modulename + '/' + config.publicMediaPath + '/[hash]-[name].[ext]'
                                     );
                                 }
 
